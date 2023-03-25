@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+
+
+{% block title %}My Top {{ len(all_movies) }} Movies
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1 class="heading">My Top 20 Movies</h1>
+  <p class="description">These are my all-time favourite movies.</p>
+
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+
+ <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+{{ message }}
+<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+ {% if all_movies == None %}
+        <h2 class="text-center">Library is empty.</h2>
+    {% else %}
+    <div class="row">
+    {% for movie in all_movies %}
+        <div class="col-md-3">
+  <div class="card" >
+    <div class="front" style="background-image: url({{ movie.img_url }});">
+        <p class="large">{{ movie.ranking }}</p>
+    </div>
+    <div class="back">
+      <div>
+    <div class="title">{{ movie.title }} <span class="release_date">{{ movie.year }}</span></div>
+        <div class="rating">
+            <label>{{ movie.rating }}</label>
+          <i class="fas fa-star star"></i>
+        </div>
+          <p class="review">{{ movie.review }}</p>
+        <p class="overview">
+            {{ movie.description }}
+        </p>
+
+        <a href="{{ url_for('update_rating', movie_id=movie.id) }}" class="button">Update</a>
+
+          <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal{{ movie.id }}" class="button delete-button">Delete</a>
+   </div>
+            </div>
+          </div>
+        </div>
+
+<!-- Modal confirmation for delete-->
+<div class="modal fade" id="exampleModal{{ movie.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete movie: {{ movie.id }} - {{movie.title }} </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+      </div>
+      <div class="modal-body">
+         <p>Do you really want to delete this movie?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <a href="{{ url_for('delete', movie_id=movie.id) }}" type="button" class="btn btn-danger">Confirm</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+    {% endfor %}
+    {% endif %}
+</div>
+<div class="container text-center add">
+<a href="{{ url_for('add') }}" class="button">Add Movie</a>
+</div>
+  </div>
+<br>
+<hr>
+<!--pagination-->
+<nav aria-label="Pagination">
+  <ul class="pagination justify-content-center">
+    {% if all_movies.has_prev %}
+      <li class="page-item">
+        <a class="page-link" href="{{ url_for('home', page=all_movies.prev_num) }}" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <a class="page-link" href="#" tabindex="-1" aria-disabled="true" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+    {% endif %}
+
+    {% for page in all_movies.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page %}
+        {% if page == all_movies.page %}
+          <li class="page-item active" aria-current="page">
+            <a class="page-link"  style="background-color: #0d98ba;">{{ page }}</a>
+          </li>
+        {% else %}
+          <li class="page-item">
+            <a class="page-link" href="{{ url_for('home', page=page) }}">{{ page }}</a>
+          </li>
+        {% endif %}
+      {% else %}
+        <li class="page-item disabled">
+          <a class="page-link" href="#" tabindex="-1" aria-disabled="true">...</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+
+    {% if all_movies.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="{{ url_for('home', page=all_movies.next_num) }}" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <a class="page-link" href="#" tabindex="-1" aria-disabled="true" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    {% endif %}
+  </ul>
+</nav>
+
+<br>
+
+{% endblock %}
