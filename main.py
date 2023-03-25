@@ -106,7 +106,7 @@ def update_rating(movie_id):
         form.your_rating.render_kw = {"placeholder": f"{movie.rating}"}
         form.your_review.render_kw = {"placeholder": f"{movie.review}"}
 
-    return render_template("edit.html", movie=movie, form=form)
+    return render_template("edit.html", movie=movie, form=form, year=current_year)
 
 
 # Delete items
@@ -141,7 +141,7 @@ def add():
         films = response.json()["results"]
         return render_template("select.html", films=films, len=len)
 
-    return render_template("add.html", form=form)
+    return render_template("add.html", form=form, year=current_year)
 
 
 @app.route("/find", methods=["GET", "POST"])
