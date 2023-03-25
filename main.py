@@ -71,15 +71,21 @@ class AddMovieForm(FlaskForm):
 @app.route("/")
 def home():
     page = request.args.get('page', default=1, type=int)
+    per_page = 12
     # Query the Movie table and order the results by rating in descending order
-    all_movies = Movie.query.order_by(-Movie.rating)
-    print(all_movies)
-    for i, movie in enumerate(all_movies):
-        movie.ranking = i + 1
+    all_movies = Movie.query.order_by(-Movie.rating).paginate(page=page, per_page=per_page)
+    count = all_movies.total
+    # Calculate the movie ranking for the current page
+    start = (page - 1) * per_page
+    end = min(start + per_page, count)
+    for i, movie in enumerate(all_movies.items[start:end]):
+        movie.ranking = start + i + 1
     db.session.commit()
-    # paginate all movies respecting their ranking
-    all_movies = Movie.query.order_by(Movie.ranking).paginate(page=page, per_page=12)
+
     return render_template("index.html", all_movies=all_movies)
+
+
+
 
 
 # Update rating
