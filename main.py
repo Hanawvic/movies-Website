@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 import requests
 from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_bootstrap import Bootstrap5
@@ -7,6 +8,9 @@ from flask_wtf import FlaskForm
 from sqlalchemy.exc import IntegrityError
 from wtforms import StringField, SubmitField, FloatField
 from wtforms.validators import DataRequired, InputRequired, NumberRange
+
+
+current_year = datetime.now().year
 
 API_KEY = os.environ.get("API_KEY")
 
@@ -81,7 +85,7 @@ def home():
         movie.ranking = start + i + 1
     db.session.commit()
 
-    return render_template("index.html", all_movies=all_movies)
+    return render_template("index.html", all_movies=all_movies, year=current_year)
 
 
 # Update rating
