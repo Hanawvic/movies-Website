@@ -1,13 +1,9 @@
 {% extends 'base.html' %}
 
 
-
-{% block title %}My Top {{ len(all_movies) }} Movies
-{% endblock %}
-
 {% block content %}
 <div class="container">
-  <h1 class="heading">My Top 20 Movies</h1>
+  <h1 class="heading">My Top {{ all_movies.total }} Movies</h1>
   <p class="description">These are my all-time favourite movies.</p>
 
 
