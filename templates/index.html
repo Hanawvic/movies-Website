@@ -28,7 +28,7 @@
         <h2 class="text-center">Library is empty.</h2>
     {% else %}
     <div class="row">
-    {% for movie in all_movies %}
+    {% for movie in all_movies.items %}
         <div class="col-md-3">
   <div class="card" >
     <div class="front" style="background-image: url({{ movie.img_url }});">

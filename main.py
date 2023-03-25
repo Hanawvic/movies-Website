@@ -73,19 +73,15 @@ def home():
     page = request.args.get('page', default=1, type=int)
     per_page = 8
     # Query the Movie table and order the results by rating in descending order
-    all_movies = Movie.query.order_by(-Movie.rating).paginate(page=page, per_page=per_page)
-    count = all_movies.total
+    all_movies = Movie.query.order_by(Movie.rating.desc()).paginate(page=page, per_page=per_page)
     # Calculate the movie ranking for the current page
     start = (page - 1) * per_page
-    end = min(start + per_page, count)
-    for i, movie in enumerate(all_movies.items[start:end]):
+    # all_movies.items is a list of Movie objects that represent the movies on the current page.
+    for i, movie in enumerate(all_movies.items):
         movie.ranking = start + i + 1
     db.session.commit()
 
     return render_template("index.html", all_movies=all_movies)
-
-
-
 
 
 # Update rating
