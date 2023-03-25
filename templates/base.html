@@ -18,50 +18,13 @@
 
         {% endblock %}
 
-        <title>My Top {{ all_movies.total }} Movies</title>
+        <title>My favorite Movies</title>
         {% endblock %}
     </head>
     <body>
         <!-- Your page content -->
         {% block content %}{% endblock %}
 
-          <!-- Footer -->
-
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <ul class="list-inline text-center">
-            <li class="list-inline-item">
-              <a href="https://www.linkedin.com/in/heni-bouafia-0b792868/">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x" ></i>
-                  <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="https://www.facebook.com/heni.bouafia">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="https://github.com/Hanawvic">
-                <span class="fa-stack fa-lg">
-                  <i class="fas fa-circle fa-stack-2x"></i>
-                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                </span>
-              </a>
-            </li>
-          </ul>
-          <p class="copyright text-muted">Copyright &copy; My top {{ all_movies.total }} Movies 2022 - {{ year }}</p>
-        </div>
-      </div>
-    </div>
-  </footer>
 
         {% block scripts %}
             <!-- Optional JavaScript -->
