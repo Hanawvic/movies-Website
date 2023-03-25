@@ -71,7 +71,7 @@ class AddMovieForm(FlaskForm):
 @app.route("/")
 def home():
     page = request.args.get('page', default=1, type=int)
-    per_page = 12
+    per_page = 8
     # Query the Movie table and order the results by rating in descending order
     all_movies = Movie.query.order_by(-Movie.rating).paginate(page=page, per_page=per_page)
     count = all_movies.total
