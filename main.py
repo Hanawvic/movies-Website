@@ -77,7 +77,7 @@ def home():
     for i, movie in enumerate(all_movies):
         movie.ranking = i + 1
     db.session.commit()
-    return render_template("index.html", all_movies=all_movies)
+    return render_template("index.html", all_movies=all_movies, len=len)
 
 
 # Update rating
