@@ -7,7 +7,7 @@
 
 {% block content %}
 <div class="container">
-  <h1 class="heading">My Top {{ len(all_movies) }} Movies</h1>
+  <h1 class="heading">My Top 20 Movies</h1>
   <p class="description">These are my all-time favourite movies.</p>
 
 
@@ -24,7 +24,7 @@
   {% endif %}
 {% endwith %}
 
- {% if len(all_movies) == 0 %}
+ {% if all_movies == None %}
         <h2 class="text-center">Library is empty.</h2>
     {% else %}
     <div class="row">
@@ -91,7 +91,7 @@
   <ul class="pagination justify-content-center">
     {% if all_movies.has_prev %}
       <li class="page-item">
-        <a class="page-link" href="{{ url_for('home', page=all_movies.prev_num, len=len) }}" aria-label="Previous">
+        <a class="page-link" href="{{ url_for('home', page=all_movies.prev_num) }}" aria-label="Previous">
           <span aria-hidden="true">&laquo;</span>
         </a>
       </li>
@@ -111,7 +111,7 @@
           </li>
         {% else %}
           <li class="page-item">
-            <a class="page-link" href="{{ url_for('home', page=page, len=len) }}">{{ page }}</a>
+            <a class="page-link" href="{{ url_for('home', page=page) }}">{{ page }}</a>
           </li>
         {% endif %}
       {% else %}
@@ -123,7 +123,7 @@
 
     {% if all_movies.has_next %}
       <li class="page-item">
-        <a class="page-link" href="{{ url_for('home', page=all_movies.next_num, len=len) }}" aria-label="Next">
+        <a class="page-link" href="{{ url_for('home', page=all_movies.next_num) }}" aria-label="Next">
           <span aria-hidden="true">&raquo;</span>
         </a>
       </li>
