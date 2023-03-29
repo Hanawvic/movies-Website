@@ -22,7 +22,6 @@
 
   <!--applying jinja filter to calculate length cuz len is not defined in jinja-->
   {% set len_movies = all_movies.items | length %}
-
  {% if len_movies == 0 %}
         <h2 class="text-center">Library is empty.</h2>
     {% else %}
