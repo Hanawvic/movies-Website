@@ -85,7 +85,7 @@ def home():
         movie.ranking = start + i + 1
     db.session.commit()
 
-    return render_template("index.html", all_movies=all_movies, year=current_year, len_movies=len(all_movies.items))
+    return render_template("index.html", all_movies=all_movies, year=current_year)
 
 
 # Update rating
